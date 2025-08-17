@@ -1,0 +1,11 @@
+{
+  "name": "wedding-invitation",
+  "version": "1.0.0",
+  "description": "A simple wedding invitation web project using HTML, CSS, and JavaScript.",
+  "main": "src/index.html",
+  "scripts": {
+    "start": "open src/index.html"
+  },
+  "author": "Ryuu Machida",
+  "license": "MIT"
+}
