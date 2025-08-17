@@ -60,4 +60,61 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.event-card, .couple-wrapper, .venue-details, .family-wrapper').forEach((el) => {
         observer.observe(el);
     });
+
+    // Add Media Session API support
+    if ('mediaSession' in navigator) {
+        navigator.mediaSession.metadata = new MediaMetadata({
+            title: 'Until I Found You',
+            artist: 'Stephen Sanchez, Em Beihold',
+            album: 'Wedding of Rama & Sinta',
+            artwork: [
+                {
+                    src: 'apisession.png',
+                    sizes: '96x96',
+                    type: 'image/png'
+                },
+                {
+                    src: 'apisession.png',
+                    sizes: '128x128',
+                    type: 'image/png'
+                },
+                {
+                    src: 'apisession.png',
+                    sizes: '192x192',
+                    type: 'image/png'
+                },
+                {
+                    src: 'apisession.png',
+                    sizes: '512x512',
+                    type: 'image/png'
+                }
+            ]
+        });
+
+        // Add media session action handlers
+        navigator.mediaSession.setActionHandler('play', () => {
+            audio.play();
+            isPlaying = true;
+            btnMusic.classList.add('playing');
+        });
+
+        navigator.mediaSession.setActionHandler('pause', () => {
+            audio.pause();
+            isPlaying = false;
+            btnMusic.classList.remove('playing');
+        });
+    }
+
+    // Update media session state when audio plays/pauses
+    audio.addEventListener('play', () => {
+        if ('mediaSession' in navigator) {
+            navigator.mediaSession.playbackState = 'playing';
+        }
+    });
+
+    audio.addEventListener('pause', () => {
+        if ('mediaSession' in navigator) {
+            navigator.mediaSession.playbackState = 'paused';
+        }
+    });
 });
